@@ -1,0 +1,27 @@
+{
+  "name": "pr-finder",
+  "version": "1.0.0",
+  "description": "pr finder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivkumar5/pr-finder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivkumar5/pr-finder/issues"
+  },
+  "homepage": "https://github.com/shivkumar5/pr-finder#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.7",
+    "dotenv": "^8.2.0"
+  }
+}
