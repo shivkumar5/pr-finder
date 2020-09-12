@@ -1,5 +1,5 @@
-import { fetchPullRequestDetails, fetchPullRequestFilesDetail, listPullRequestFiles } from './src/github-api.js'
-import dotenv from "dotenv";
+import { fetchPullRequestDetails, fetchPullRequestFilesDetail, listPullRequestFiles } from './src/github-api'
+import * as dotenv from "dotenv";
 
 dotenv.config()
 const abc = async ()  => {
