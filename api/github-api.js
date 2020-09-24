@@ -1,14 +1,13 @@
-import fetch from 'node-fetch';
-import { PullRequest, PullRequestFile } from '../@types';
-const fetchPullRequestDetails = async (token:string | undefined, repo:string):Promise<PullRequest[]> => {
-   return await fetch(`https://api.github.com/repos/${repo}/pulls`, {
+const fetch = require('node-fetch');
+const fetchPullRequestDetails = async (token,user, repo) => {
+   return await fetch(`https://api.github.com/repos/${user}/${repo}/pulls`, {
         headers: {
             "Authorization": `token ${token}`
         }
     }).then( async res => res.json());
 }
 
-const fetchPullRequestFilesDetail = async (token:string | undefined, pulls:PullRequest[]):Promise<PullRequestFile[]> => {
+const fetchPullRequestFilesDetail = async (token, pulls) => {
     return await Promise.all(pulls.map(async pull => {
         return await fetch(pull.url + '/files', {
             headers: {
@@ -17,6 +16,7 @@ const fetchPullRequestFilesDetail = async (token:string | undefined, pulls:PullR
         }).then(async result => {
             return {
                 pull_request: pull.number,
+                url:pull.url,
                 filesData: await result.json()
             }
         })
@@ -24,14 +24,15 @@ const fetchPullRequestFilesDetail = async (token:string | undefined, pulls:PullR
     }));
 }
 
-const listPullRequestFiles = async (pullRequestFilesData:PullRequestFile[]) => {
+const listPullRequestFiles = async (pullRequestFilesData) => {
     return await Promise.all(pullRequestFilesData.map(async pullRequestFile => {
         return {
             pull_request: pullRequestFile.pull_request,
+            url:pullRequestFile.url,
             files: await Promise.all(pullRequestFile.filesData.map(async file => {
                 return file.filename
             }))
         }
     }))
 }
-export { fetchPullRequestDetails, fetchPullRequestFilesDetail, listPullRequestFiles }
+module.exports = {fetchPullRequestDetails, fetchPullRequestFilesDetail, listPullRequestFiles }
