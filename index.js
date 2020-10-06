@@ -1,5 +1,5 @@
 
-const { Command, requiredOption } = require('commander');
+const { Command } = require('commander');
 const dotenv = require('dotenv');
 const { findPullRequests } = require('./src/index')
 
